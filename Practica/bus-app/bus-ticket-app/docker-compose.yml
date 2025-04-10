@@ -28,7 +28,7 @@ services:
     networks:
       - app-network
      
-     deploy:
+    deploy:
       replicas: 2
       restart_policy:
         condition: on-failure
@@ -40,7 +40,7 @@ services:
     networks:
       - app-network
     
-     deploy:
+    deploy:
       replicas: 2
       restart_policy:
         condition: on-failure
@@ -52,7 +52,7 @@ services:
     networks:
       - app-network
      
-     deploy:
+    deploy:
       replicas: 2
       restart_policy:
         condition: on-failure
@@ -64,7 +64,7 @@ services:
     networks:
       - app-network
     
-     deploy:
+    deploy:
       replicas: 2
       restart_policy:
         condition: on-failure

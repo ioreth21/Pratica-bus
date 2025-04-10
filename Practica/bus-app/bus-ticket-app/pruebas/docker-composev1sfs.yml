@@ -1,0 +1,5 @@
+bus-ticket-app-proxy             latest    46d99aab17c6   43 minutes ago   48.2MB
+bus-ticket-app-bus-reservation   latest    e77bb1c8b879   43 minutes ago   137MB
+bus-ticket-app-route-scheduler   latest    89c8355ccf46   43 minutes ago   137MB
+bus-ticket-app-user-auth         latest    a8a3de922eaf   43 minutes ago   137MB
+bus-ticket-app-payment-gateway

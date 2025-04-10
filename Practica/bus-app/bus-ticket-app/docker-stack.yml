@@ -1,0 +1,72 @@
+services:
+  # Servicio de Nginx (Proxy Inverso + Frontend)
+  proxy:
+    image: bus-ticket-app-proxy 
+    ports:
+      - "80:80"  # Accesible desde el host en http://localhost
+    depends_on:
+      - user-auth
+      - bus-reservation
+      - payment-gateway
+      - route-scheduler
+    networks:
+      - app-network
+
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.role == worker]  # o elimínalo para todos los nodos
+      restart_policy:
+        condition: on-failure
+        
+  user-auth:
+    image: bus-ticket-app-user-auth
+    ports:
+      - "5001:5001"
+    networks:
+      - app-network
+     
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+     
+  bus-reservation:
+    image: bus-ticket-app-bus-reservation 
+    ports:
+      - "5002:5002"
+    networks:
+      - app-network
+    
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      
+  payment-gateway:
+    image: bus-ticket-app-payment-gateway
+    ports:
+      - "5003:5003"
+    networks:
+      - app-network
+     
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+
+  route-scheduler:
+    image: bus-ticket-app-route-scheduler 
+    ports:
+      - "5004:5004"
+    networks:
+      - app-network
+    
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      
+networks:
+  app-network:
+    driver: overlay
