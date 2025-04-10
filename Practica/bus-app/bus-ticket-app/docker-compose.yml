@@ -14,19 +14,36 @@ services:
     networks:
       - app-network
 
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.role == worker]  # o elimínalo para todos los nodos
+      restart_policy:
+        condition: on-failure
+        
   user-auth:
     build: ./microservices/user-auth
     ports:
       - "5001:5001"
     networks:
       - app-network
-      
+     
+     deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+     
   bus-reservation:
     build: ./microservices/bus-reservation
     ports:
       - "5002:5002"
     networks:
       - app-network
+    
+     deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
       
   payment-gateway:
     build: ./microservices/payment-gateway
@@ -34,6 +51,11 @@ services:
       - "5003:5003"
     networks:
       - app-network
+     
+     deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
 
   route-scheduler:
     build: ./microservices/route-scheduler
@@ -41,6 +63,11 @@ services:
       - "5004:5004"
     networks:
       - app-network
+    
+     deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
       
 networks:
   app-network:
